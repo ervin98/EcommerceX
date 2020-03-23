@@ -84,6 +84,17 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
                     Toast.makeText(mCtx, "Ini adalah contoh Toast di Android",Toast.LENGTH_LONG).show();
                 }
             });
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(mListener!=null){
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            mListener.onItemClick(position);
+                        }
+                    }
+                }
+            });
 
         }
     }

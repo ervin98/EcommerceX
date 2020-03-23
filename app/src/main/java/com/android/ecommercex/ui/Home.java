@@ -35,7 +35,7 @@ public class Home extends Fragment implements ProductAdapter.OnItemClickListener
     public static final String EXTRA_GAMBAR = "pr_gambar";
     public static final String EXTRA_NILAI = "pr_nilai";
     public static final String EXTRA_SHORTDESC = "pr_shortdesc";
-    private static final String URL_PRODUCTS = "http://192.168.1.115/Appkasir/Api.php";
+    private static final String URL_PRODUCTS = "http://192.168.18.8/Appkasir/Home.php";
     private RecyclerView mRecyclerView;
     private ProductAdapter mProductAdapter;
     private ArrayList<Product> mProductList;
