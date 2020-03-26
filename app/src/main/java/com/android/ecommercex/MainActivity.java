@@ -1,28 +1,26 @@
 package com.android.ecommercex;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.Menu;
-import android.widget.Button;
+import android.view.MenuItem;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.android.ecommercex.activity.LoginActivity;
-import com.android.ecommercex.fragment.ShoppingCart;
-import com.android.ecommercex.fragment.Home;
-import com.android.ecommercex.fragment.Login;
-import com.google.android.material.navigation.NavigationView;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.core.view.GravityCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+
+import com.android.ecommercex.activity.LoginActivity;
+import com.android.ecommercex.fragment.Home;
+import com.android.ecommercex.fragment.Login;
+import com.android.ecommercex.fragment.ShoppingCart;
+import com.android.ecommercex.fragment.User;
+import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -34,7 +32,7 @@ public class MainActivity extends AppCompatActivity
     Fragment fragment = null;
 
     TextView txt_id, txt_username,txt_welcome;
-    String id, username;
+    String id_user, username;
     SharedPreferences sharedpreferences;
 
 
@@ -58,7 +56,7 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         sharedpreferences = getSharedPreferences(LoginActivity.my_shared_preferences, Context.MODE_PRIVATE);
-        id = getIntent().getStringExtra(TAG_ID);
+        id_user = getIntent().getStringExtra(TAG_ID);
         username = getIntent().getStringExtra(TAG_USERNAME);
 
         // tampilan default awal ketika aplikasii dijalankan
@@ -95,13 +93,6 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            SharedPreferences.Editor editor = sharedpreferences.edit();
-            editor.putBoolean(LoginActivity.session_status, false);
-            editor.putString(TAG_ID, null);
-            editor.putString(TAG_USERNAME, null);
-            editor.commit();
-
-            startActivity(new Intent(this,LoginActivity.class));
 
             return true;
         }
@@ -114,20 +105,25 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
+        TextView nama=findViewById(R.id.nav_user);
         // Untuk memanggil layout dari menu yang dipilih
         if (id == R.id.nav_home) {
             fragment = new Home();
             callFragment(fragment);
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.nav_cart) {
             fragment = new ShoppingCart();
             callFragment(fragment);
-        } else if (id == R.id.nav_slideshow) {
-            fragment = new Login();
-            callFragment(fragment);
-        }
-
-        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        } else if (id == R.id.nav_user) {
+            if(id_user!=null)
+            {
+               fragment= new User();
+               callFragment(fragment);
+            }else {
+                fragment = new Login();
+                callFragment(fragment);
+            }
+    }
+        drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
