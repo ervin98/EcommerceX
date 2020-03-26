@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.android.ecommercex.ui.Home"
+        android:name="com.android.ecommercex.fragment.Home"
         android:label="@string/menu_home"
         tools:layout="@layout/frag_home">
 
@@ -17,7 +17,7 @@
     </fragment>
     <fragment
         android:id="@+id/nav_home_second"
-        android:name="com.android.ecommercex.ui.home.HomeSecondFragment"
+        android:name="com.android.ecommercex.fragment.home.HomeSecondFragment"
         android:label="@string/home_second"
         tools:layout="@layout/fragment_home_second">
         <action
@@ -31,13 +31,13 @@
 
     <fragment
         android:id="@+id/nav_gallery"
-        android:name="com.android.ecommercex.ui.gallery.GalleryFragment"
+        android:name="com.android.ecommercex.fragment.gallery.GalleryFragment"
         android:label="@string/menu_gallery"
-        tools:layout="@layout/frag_scart" />
+        tools:layout="@layout/frag_cart" />
 
     <fragment
         android:id="@+id/nav_slideshow"
-        android:name="com.android.ecommercex.ui.Login"
+        android:name="com.android.ecommercex.fragment.Login"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/frag_login" />
 </navigation>

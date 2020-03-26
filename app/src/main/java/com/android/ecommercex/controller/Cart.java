@@ -1,6 +1,6 @@
 package com.android.ecommercex.controller;
 
-public class Product {
+public class Cart {
     private int id;
     private String nama;
     private String detail;
@@ -9,7 +9,7 @@ public class Product {
     private String gbr;
     private String jml;
 
-    public Product(int id, String nama, String detail, double nilai, double harga, String gbr) {
+    public Cart(int id, String nama, String detail, double nilai, double harga, String gbr) {
         this.id = id;
         this.nama = nama;
         this.detail = detail;

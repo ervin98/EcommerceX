@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,10 +17,10 @@ import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
 
-public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ProductViewHolder> {
+public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder> {
 
-    private Context mCtx;
-    private List<Product> mProductList;
+    private Context mPtx;
+    private List<Cart> mCartList;
     private OnItemClickListener mListener;
     Locale localeID = new Locale("in", "ID");
     NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
@@ -31,59 +30,63 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ProductViewHol
     public interface OnItemClickListener {
         void onItemClick(int position);
     }
-    public CartAdapter(Context mCtx, List<Product> productList) {
-        this.mCtx = mCtx;
-        this.mProductList = productList;
+
+    public CartAdapter(Context mPtx, List<Cart> cartList) {
+
+        this.mPtx = mPtx;
+        this.mCartList = cartList;
     }
+
     public void setOnItemClickListener(OnItemClickListener listener) {
         mListener = listener;
     }
+
     @Override
-    public ProductViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(mCtx).inflate(R.layout.cart_list, null);
-        return new ProductViewHolder(view);
+    public CartViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(mPtx).inflate(R.layout.cart_list, null);
+        return new CartViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(ProductViewHolder holder, int position) {
-        Product product = mProductList.get(position);
+    public void onBindViewHolder(CartViewHolder holder, int position) {
+        final Cart cartx = mCartList.get(position);
 
         //loading the image
-        Glide.with(mCtx)
-                .load(product.getGbr())
+        Glide.with(mPtx)
+                .load(cartx.getGbr())
                 .into(holder.imageView);
 
-        holder.textViewTitle.setText(product.getNama());
-        holder.textViewShortDesc.setText(product.getDetail());
-        holder.textViewRating.setText(String.valueOf(product.getNilai()));
-        holder.textViewPrice.setText(formatRupiah.format((product.getHarga())));
+        holder.textViewTitle.setText(cartx.getNama());
+        holder.textViewShortDesc.setText(cartx.getDetail());
+        holder.textViewPrice.setText(formatRupiah.format((cartx.getHarga())));
+        holder.textViewJml.setText(String.valueOf(cartx.getQuantity()));
+        holder.cart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
     }
+
     @Override
     public int getItemCount() {
-        return mProductList.size();
+        return 0;
     }
 
-    public class ProductViewHolder extends RecyclerView.ViewHolder {
 
-        TextView textViewTitle, textViewShortDesc, textViewRating, textViewPrice;
+    public class CartViewHolder extends RecyclerView.ViewHolder {
+
+        TextView textViewTitle, textViewShortDesc, textViewJml, textViewPrice;
         ImageView imageView;
         Button cart;
 
-        public ProductViewHolder(View itemView) {
+        public CartViewHolder(View itemView) {
             super(itemView);
 
-            textViewTitle = itemView.findViewById(R.id.textViewTitle);
-            textViewShortDesc = itemView.findViewById(R.id.textViewShortDesc);
-            textViewRating = itemView.findViewById(R.id.textViewRating);
-            textViewPrice = itemView.findViewById(R.id.textViewPrice);
-            imageView = itemView.findViewById(R.id.imageView);
-            cart=itemView.findViewById(R.id.crtku);
-            cart.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(mCtx, "Ini adalah contoh Toast di Android",Toast.LENGTH_LONG).show();
-                }
-            });
+            textViewTitle = itemView.findViewById(R.id.cart_item_name);
+            textViewJml = itemView.findViewById(R.id.cart_item_jml);
+            textViewPrice = itemView.findViewById(R.id.cart_item_price);
 
         }
     }

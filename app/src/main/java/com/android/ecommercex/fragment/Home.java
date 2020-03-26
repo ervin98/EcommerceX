@@ -1,4 +1,4 @@
-package com.android.ecommercex.ui;
+package com.android.ecommercex.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.android.ecommercex.DetailActivity;
+import com.android.ecommercex.activity.DetailActivity;
 import com.android.ecommercex.R;
 import com.android.ecommercex.controller.Product;
 import com.android.ecommercex.controller.ProductAdapter;
@@ -70,15 +70,11 @@ public class Home extends Fragment implements ProductAdapter.OnItemClickListener
                             try {
                                 //converting the string to json array object
                                 JSONArray array = new JSONArray(response);
-
                                 //traversing through all the object
                                 for (int i = 0; i < array.length(); i++) {
-
                                     //getting product object from json array
                                     JSONObject productObj = array.getJSONObject(i);
-
                                     //adding the product to product list
-
                                     mProductList.add(new Product(
                                             productObj.getInt("id"),
                                             productObj.getString("nama"),
@@ -88,7 +84,6 @@ public class Home extends Fragment implements ProductAdapter.OnItemClickListener
                                             productObj.getString("gbr")
                                     ));
                                 }
-
                                 //creating adapter object and setting it to recyclerview
                                 mProductAdapter = new ProductAdapter(getActivity(),mProductList);
                                 mRecyclerView.setAdapter(mProductAdapter);

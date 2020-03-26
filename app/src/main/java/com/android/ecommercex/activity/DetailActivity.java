@@ -1,19 +1,18 @@
-package com.android.ecommercex;
+package com.android.ecommercex.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageView;
-import android.widget.RatingBar;
 import android.widget.TextView;
-import static com.android.ecommercex.ui.Home.EXTRA_GAMBAR;
-import static com.android.ecommercex.ui.Home.EXTRA_HARGA;
-import static com.android.ecommercex.ui.Home.EXTRA_NAMA;
-import static com.android.ecommercex.ui.Home.EXTRA_NILAI;
-import static com.android.ecommercex.ui.Home.EXTRA_SHORTDESC;
+import static com.android.ecommercex.fragment.Home.EXTRA_GAMBAR;
+import static com.android.ecommercex.fragment.Home.EXTRA_HARGA;
+import static com.android.ecommercex.fragment.Home.EXTRA_NAMA;
+import static com.android.ecommercex.fragment.Home.EXTRA_NILAI;
+import static com.android.ecommercex.fragment.Home.EXTRA_SHORTDESC;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.ecommercex.R;
 import com.bumptech.glide.Glide;
 
 import java.text.NumberFormat;

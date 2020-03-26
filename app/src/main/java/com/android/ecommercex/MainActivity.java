@@ -1,13 +1,17 @@
 package com.android.ecommercex;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.Menu;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.ecommercex.ui.Cart;
-import com.android.ecommercex.ui.Home;
-import com.android.ecommercex.ui.Login;
+import com.android.ecommercex.activity.LoginActivity;
+import com.android.ecommercex.fragment.ShoppingCart;
+import com.android.ecommercex.fragment.Home;
+import com.android.ecommercex.fragment.Login;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -27,21 +31,32 @@ public class MainActivity extends AppCompatActivity
     FragmentManager fragmentManager;
     Fragment fragment = null;
 
+    TextView txt_id, txt_username,txt_welcome;
+    String id, username;
+    SharedPreferences sharedpreferences;
+
+    public static final String TAG_ID = "id";
+    public static final String TAG_USERNAME = "username";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        sharedpreferences = getSharedPreferences(LoginActivity.my_shared_preferences, Context.MODE_PRIVATE);
+        id = getIntent().getStringExtra(TAG_ID);
+        username = getIntent().getStringExtra(TAG_USERNAME);
 
         // tampilan default awal ketika aplikasii dijalankan
         if (savedInstanceState == null) {
@@ -53,7 +68,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -77,7 +92,7 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            Toast.makeText(getApplicationContext(), "Action Settings", Toast.LENGTH_SHORT).show();
+
             return true;
         }
 
@@ -95,7 +110,7 @@ public class MainActivity extends AppCompatActivity
             fragment = new Home();
             callFragment(fragment);
         } else if (id == R.id.nav_gallery) {
-            fragment = new Cart();
+            fragment = new ShoppingCart();
             callFragment(fragment);
         } else if (id == R.id.nav_slideshow) {
             fragment = new Login();

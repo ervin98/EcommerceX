@@ -7,11 +7,15 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.ecommercex.R;
+import com.android.ecommercex.fragment.ShoppingCart;
 import com.bumptech.glide.Glide;
 
 import java.text.NumberFormat;
@@ -25,13 +29,14 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     private OnItemClickListener mListener;
     Locale localeID = new Locale("in", "ID");
     NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
-    Button cart;
+    double total=0;
 
 
     public interface OnItemClickListener {
         void onItemClick(int position);
     }
     public ProductAdapter(Context mCtx, List<Product> productList) {
+
         this.mCtx = mCtx;
         this.mProductList = productList;
     }
@@ -46,7 +51,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
     @Override
     public void onBindViewHolder(ProductViewHolder holder, int position) {
-        Product product = mProductList.get(position);
+        final Product product = mProductList.get(position);
 
         //loading the image
         Glide.with(mCtx)
@@ -57,7 +62,23 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         holder.textViewShortDesc.setText(product.getDetail());
         holder.textViewRating.setText(String.valueOf(product.getNilai()));
         holder.textViewPrice.setText(formatRupiah.format((product.getHarga())));
-    }
+        holder.cart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                total=total+product.getHarga();
+                Fragment fragment = ShoppingCart.newInstance((int)product.getHarga(), product.getNama(),(int)total);
+                FragmentManager fm = ((AppCompatActivity)mCtx).getSupportFragmentManager();
+                FragmentTransaction ft = fm.beginTransaction();
+                ft.replace(R.id.frame_container, fragment);
+                ft.commit();
+            }
+        });
+
+}
+
+
+
     @Override
     public int getItemCount() {
         return mProductList.size();
@@ -78,12 +99,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             textViewPrice = itemView.findViewById(R.id.textViewPrice);
             imageView = itemView.findViewById(R.id.imageView);
             cart=itemView.findViewById(R.id.crtku);
-            cart.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(mCtx, "Ini adalah contoh Toast di Android",Toast.LENGTH_LONG).show();
-                }
-            });
+
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

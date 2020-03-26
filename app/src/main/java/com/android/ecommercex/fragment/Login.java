@@ -1,4 +1,4 @@
-package com.android.ecommercex.ui;
+package com.android.ecommercex.fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
