@@ -93,6 +93,7 @@ public class RegisterActivity extends AppCompatActivity {
                         && conMgr.getActiveNetworkInfo().isAvailable()
                         && conMgr.getActiveNetworkInfo().isConnected()) {
                     checkRegister(username, password, confirm_password);
+                    startActivity(new Intent(RegisterActivity.this,LoginActivity.class));
                 } else {
                     Toast.makeText(getApplicationContext(), "No Internet Connection", Toast.LENGTH_SHORT).show();
                 }

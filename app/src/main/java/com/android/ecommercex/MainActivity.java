@@ -1,10 +1,12 @@
 package com.android.ecommercex;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.Menu;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,6 +36,7 @@ public class MainActivity extends AppCompatActivity
     TextView txt_id, txt_username,txt_welcome;
     String id, username;
     SharedPreferences sharedpreferences;
+
 
     public static final String TAG_ID = "id";
     public static final String TAG_USERNAME = "username";
@@ -92,6 +95,13 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            SharedPreferences.Editor editor = sharedpreferences.edit();
+            editor.putBoolean(LoginActivity.session_status, false);
+            editor.putString(TAG_ID, null);
+            editor.putString(TAG_USERNAME, null);
+            editor.commit();
+
+            startActivity(new Intent(this,LoginActivity.class));
 
             return true;
         }

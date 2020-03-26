@@ -39,7 +39,7 @@ public class LoginActivity extends AppCompatActivity {
     int success;
     ConnectivityManager conMgr;
 
-    private String url = Server.URL + "login.php";
+    private String url = Server.URL + "activity/login.php";
 
     private static final String TAG = LoginActivity.class.getSimpleName();
 
@@ -73,10 +73,10 @@ public class LoginActivity extends AppCompatActivity {
             }
         }
 
-        btn_login = (Button) findViewById(R.id.btn_login);
-        btn_register = (Button) findViewById(R.id.btn_register);
-        txt_username = (EditText) findViewById(R.id.txt_username);
-        txt_password = (EditText) findViewById(R.id.txt_password);
+        btn_login = findViewById(R.id.btn_login);
+        btn_register = findViewById(R.id.btn_register);
+        txt_username = findViewById(R.id.txt_username);
+        txt_password = findViewById(R.id.txt_password);
 
         // Cek session login jika TRUE maka langsung buka MainActivity
         sharedpreferences = getSharedPreferences(my_shared_preferences, Context.MODE_PRIVATE);
