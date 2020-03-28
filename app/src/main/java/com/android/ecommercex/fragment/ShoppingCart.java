@@ -34,8 +34,7 @@ public class ShoppingCart extends Fragment {
 
     public ShoppingCart() {}
 
-    RelativeLayout view;
-
+    private RelativeLayout view;
     private RecyclerView mView;
     private String url = Server.URL + "activity/vCart.php";
     private CartAdapter mCartAdapter;
