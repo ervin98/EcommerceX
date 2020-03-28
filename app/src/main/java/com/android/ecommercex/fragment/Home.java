@@ -1,10 +1,10 @@
 package com.android.ecommercex.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -12,10 +12,10 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.android.ecommercex.activity.DetailActivity;
 import com.android.ecommercex.R;
 import com.android.ecommercex.controller.Product;
 import com.android.ecommercex.controller.ProductAdapter;
+import com.android.ecommercex.utils.Server;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -29,13 +29,9 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class Home extends Fragment implements ProductAdapter.OnItemClickListener {
-    public static final String EXTRA_NAMA = "pr_nama";
-    public static final String EXTRA_HARGA = "pr_harga";
-    public static final String EXTRA_GAMBAR = "pr_gambar";
-    public static final String EXTRA_NILAI = "pr_nilai";
-    public static final String EXTRA_SHORTDESC = "pr_shortdesc";
-    private static final String URL_PRODUCTS = "http://192.168.18.8/Appkasir/Home.php";
+public class Home extends Fragment {
+
+    private String URL_PRODUCTS = Server.URL + "Home.php";
     private RecyclerView mRecyclerView;
     private ProductAdapter mProductAdapter;
     private ArrayList<Product> mProductList;
@@ -43,6 +39,8 @@ public class Home extends Fragment implements ProductAdapter.OnItemClickListener
 
     public Home(){}
     RelativeLayout view;
+
+    Button addCart;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -56,9 +54,9 @@ public class Home extends Fragment implements ProductAdapter.OnItemClickListener
             mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
             mProductList = new ArrayList<>();
-
             mRequestQueue = Volley.newRequestQueue(getActivity());
             loadProducts();
+
             return view;
         }
 
@@ -87,7 +85,8 @@ public class Home extends Fragment implements ProductAdapter.OnItemClickListener
                                 //creating adapter object and setting it to recyclerview
                                 mProductAdapter = new ProductAdapter(getActivity(),mProductList);
                                 mRecyclerView.setAdapter(mProductAdapter);
-                                mProductAdapter.setOnItemClickListener(Home.this);
+                              //  mProductAdapter.setOnItemClickListener(Home.this);
+
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -101,22 +100,5 @@ public class Home extends Fragment implements ProductAdapter.OnItemClickListener
                     });
             //adding our stringrequest to queue
             Volley.newRequestQueue(getActivity()).add(stringRequest);
-        }
-
-        @Override
-        public void onItemClick(int position) {
-            Intent detailIntent = new Intent(getActivity(), DetailActivity.class);
-            Product clickedItem = mProductList.get(position);
-
-            detailIntent.putExtra(EXTRA_NAMA, clickedItem.getNama());
-            double harga = clickedItem.getHarga();
-            String harga2 = Double.toString(harga);
-            detailIntent.putExtra(EXTRA_HARGA, harga2);
-            detailIntent.putExtra(EXTRA_GAMBAR, clickedItem.getGbr());
-            double nilai = clickedItem.getNilai();
-            String nilai2 = Double.toString(nilai);
-            detailIntent.putExtra(EXTRA_NILAI, nilai2);
-            detailIntent.putExtra(EXTRA_SHORTDESC, clickedItem.getDetail());
-            startActivity(detailIntent);
         }
     }

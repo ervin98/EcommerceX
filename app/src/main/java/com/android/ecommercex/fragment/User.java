@@ -25,7 +25,7 @@ public class User extends Fragment {
 
     public static final String TAG_ID = "id";
     public static final String TAG_USERNAME = "username";
-    TextView tNama;
+    TextView tNama,tId;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -35,7 +35,12 @@ public class User extends Fragment {
 
         id = getActivity().getIntent().getStringExtra(TAG_ID);
         userName = getActivity().getIntent().getStringExtra(TAG_USERNAME);
+
+
         tNama=view.findViewById(R.id.txt_name);
+        tId=view.findViewById(R.id.txt_id);
+
+        tId.setText(id);
         tNama.setText(userName);
 
         log_out=view.findViewById(R.id.btn_logout);

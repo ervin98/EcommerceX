@@ -1,21 +1,20 @@
 package com.android.ecommercex.controller;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.ecommercex.R;
-import com.android.ecommercex.fragment.ShoppingCart;
+import com.android.ecommercex.fragment.DetailProduct;
 import com.bumptech.glide.Glide;
 
 import java.text.NumberFormat;
@@ -62,16 +61,25 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         holder.textViewShortDesc.setText(product.getDetail());
         holder.textViewRating.setText(String.valueOf(product.getNilai()));
         holder.textViewPrice.setText(formatRupiah.format((product.getHarga())));
-        holder.cart.setOnClickListener(new View.OnClickListener() {
+
+        holder.cardClick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                AppCompatActivity activity=(AppCompatActivity) v.getContext();
+                Fragment fragment = new DetailProduct();
+                activity.getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.frame_container,fragment)
+                        .addToBackStack(null)
+                        .commit();
+                Bundle bundle = new Bundle();
+                bundle.putString("product_id",Integer.toString(product.getId()));
+                bundle.putString("product_name",product.getNama());
+                bundle.putString("price",Double.toString(product.getHarga()));
+                bundle.putString("product_desc",product.getDetail());
+                bundle.putString("product_image",product.getGbr());
 
-                total=total+product.getHarga();
-                Fragment fragment = ShoppingCart.newInstance((int)product.getHarga(), product.getNama(),(int)total);
-                FragmentManager fm = ((AppCompatActivity)mCtx).getSupportFragmentManager();
-                FragmentTransaction ft = fm.beginTransaction();
-                ft.replace(R.id.frame_container, fragment);
-                ft.commit();
+                fragment.setArguments(bundle);
             }
         });
 
@@ -88,7 +96,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
         TextView textViewTitle, textViewShortDesc, textViewRating, textViewPrice;
         ImageView imageView;
-        Button cart;
+        CardView cardClick;
 
         public ProductViewHolder(View itemView) {
             super(itemView);
@@ -98,8 +106,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             textViewRating = itemView.findViewById(R.id.textViewRating);
             textViewPrice = itemView.findViewById(R.id.textViewPrice);
             imageView = itemView.findViewById(R.id.imageView);
-            cart=itemView.findViewById(R.id.crtku);
-
+            cardClick=itemView.findViewById(R.id.cardviw);
+            /*
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -111,7 +119,46 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
                     }
                 }
             });
-
+            */
         }
     }
+    /*
+    private void addto_cart()  {
+
+        //if user id null then not add value on cart table automatic force close app
+        if(firebaseUser.getUid() != null && p_id != null){
+
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    Toast.makeText(getActivity(),"successfully Add Into Cart",Toast.LENGTH_SHORT).show();
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(getActivity(),error.getMessage(),Toast.LENGTH_SHORT).show();
+                }
+            }){
+
+                @Override
+                protected Map<String, String> getParams() {
+                    Map<String,String> params = new HashMap<>();
+                    params.put("token", firebaseUser.getUid());  //Its a Reference Key Of User succesfull fetch
+                    Bundle bundle = getArguments();
+                    String product_id = bundle.getString("product_id");
+                    params.put("product_id", product_id);
+                    return params;
+                }
+            };
+
+            RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+            requestQueue.add(stringRequest);
+
+        }
+        else {
+            Toast.makeText(getActivity(),"error",Toast.LENGTH_SHORT).show();
+        }
+    }
+
+*/
 }

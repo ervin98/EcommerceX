@@ -1,25 +1,29 @@
 package com.android.ecommercex.controller;
 
 public class Cart {
-    private int id;
+    private int cart_id;
     private String nama;
     private String detail;
-    private double nilai;
     private double harga;
+    private String token;
     private String gbr;
     private String jml;
 
-    public Cart(int id, String nama, String detail, double nilai, double harga, String gbr) {
-        this.id = id;
+    public Cart(int id, String nama, String detail ,double harga, String gbr,String token) {
+        this.cart_id = id;
         this.nama = nama;
         this.detail = detail;
-        this.nilai = nilai;
+
         this.harga = harga;
         this.gbr = gbr;
+        this.token=token;
     }
 
     public int getId() {
-        return id;
+        return cart_id;
+    }
+    public String getToken(){
+        return token;
     }
     public String getQuantity(){
         return jml;
@@ -30,10 +34,6 @@ public class Cart {
 
     public String getDetail() {
         return detail;
-    }
-
-    public double getNilai() {
-        return nilai;
     }
 
     public double getHarga() {

@@ -31,11 +31,11 @@ public class MainActivity extends AppCompatActivity
     FragmentManager fragmentManager;
     Fragment fragment = null;
 
-    TextView txt_id, txt_username,txt_welcome;
+
     String id_user, username;
     SharedPreferences sharedpreferences;
 
-
+    TextView txt_id, txt_username,txt_welcome;
     public static final String TAG_ID = "id";
     public static final String TAG_USERNAME = "username";
 
@@ -111,8 +111,15 @@ public class MainActivity extends AppCompatActivity
             fragment = new Home();
             callFragment(fragment);
         } else if (id == R.id.nav_cart) {
-            fragment = new ShoppingCart();
-            callFragment(fragment);
+            if(id_user==null)
+            {
+                fragment = new Login();
+                callFragment(fragment);
+            }
+            else {
+                fragment = new ShoppingCart();
+                callFragment(fragment);
+            }
         } else if (id == R.id.nav_user) {
             if(id_user!=null)
             {

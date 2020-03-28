@@ -1,5 +1,6 @@
 package com.android.ecommercex.controller;
 
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.ecommercex.R;
@@ -21,24 +23,15 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 
     private Context mPtx;
     private List<Cart> mCartList;
-    private OnItemClickListener mListener;
     Locale localeID = new Locale("in", "ID");
     NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
     Button cart;
 
 
-    public interface OnItemClickListener {
-        void onItemClick(int position);
-    }
-
     public CartAdapter(Context mPtx, List<Cart> cartList) {
 
         this.mPtx = mPtx;
         this.mCartList = cartList;
-    }
-
-    public void setOnItemClickListener(OnItemClickListener listener) {
-        mListener = listener;
     }
 
     @Override
@@ -48,30 +41,19 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     }
 
     @Override
-    public void onBindViewHolder(CartViewHolder holder, int position) {
-        final Cart cartx = mCartList.get(position);
+    public void onBindViewHolder(@NonNull final CartViewHolder holder,final int position) {
+        final Cart cartlist = mCartList.get(position);
 
-        //loading the image
+        holder.textViewTitle.setText(cartlist.getNama());
+        holder.textViewPrice.setText(formatRupiah.format((cartlist.getHarga())));
         Glide.with(mPtx)
-                .load(cartx.getGbr())
+                .load(cartlist.getGbr())
                 .into(holder.imageView);
-
-        holder.textViewTitle.setText(cartx.getNama());
-        holder.textViewShortDesc.setText(cartx.getDetail());
-        holder.textViewPrice.setText(formatRupiah.format((cartx.getHarga())));
-        holder.textViewJml.setText(String.valueOf(cartx.getQuantity()));
-        holder.cart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+       return mCartList.size();
     }
 
 
@@ -83,10 +65,9 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 
         public CartViewHolder(View itemView) {
             super(itemView);
-
-            textViewTitle = itemView.findViewById(R.id.cart_item_name);
-            textViewJml = itemView.findViewById(R.id.cart_item_jml);
-            textViewPrice = itemView.findViewById(R.id.cart_item_price);
+            imageView = itemView.findViewById(R.id.cl_gambar);
+            textViewTitle = itemView.findViewById(R.id.cl_nama);
+            textViewPrice = itemView.findViewById(R.id.cl_harga);
 
         }
     }
