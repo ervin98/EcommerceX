@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.ecommercex.R;
 import com.android.ecommercex.controller.AppController;
+import com.android.ecommercex.fragment.Login;
 import com.android.ecommercex.utils.Server;
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -65,16 +66,16 @@ public class RegisterActivity extends AppCompatActivity {
 
         btn_login = findViewById(R.id.btn_login);
         btn_register = findViewById(R.id.btn_register);
-        txt_username = findViewById(R.id.txt_username);
-        txt_password = findViewById(R.id.txt_password);
-        txt_confirm_password = findViewById(R.id.txt_confirm_password);
+        txt_username = findViewById(R.id.regist_user);
+        txt_password = findViewById(R.id.regist_pass);
+        txt_confirm_password = findViewById(R.id.regist_confirm_pass);
 
         btn_login.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-                intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                intent = new Intent(RegisterActivity.this, Login.class);
                 finish();
                 startActivity(intent);
             }
@@ -93,7 +94,7 @@ public class RegisterActivity extends AppCompatActivity {
                         && conMgr.getActiveNetworkInfo().isAvailable()
                         && conMgr.getActiveNetworkInfo().isConnected()) {
                     checkRegister(username, password, confirm_password);
-                    startActivity(new Intent(RegisterActivity.this,LoginActivity.class));
+                    startActivity(new Intent(RegisterActivity.this,Login.class));
                 } else {
                     Toast.makeText(getApplicationContext(), "No Internet Connection", Toast.LENGTH_SHORT).show();
                 }
@@ -184,7 +185,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        intent = new Intent(RegisterActivity.this, LoginActivity.class);
+        intent = new Intent(RegisterActivity.this, Login.class);
         finish();
         startActivity(intent);
     }

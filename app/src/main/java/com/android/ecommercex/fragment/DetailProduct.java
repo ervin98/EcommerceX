@@ -33,7 +33,7 @@ public class DetailProduct extends Fragment {
     Locale localeID = new Locale("in", "ID");
     NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
     private ImageView imageView;
-    private TextView detail_pname,detail_price,detail_desc,detail_id;
+    private TextView detail_pname,detail_price,detail_desc,detail_pnilai;
     SharedPreferences sharedPreferences;
     private String URL = Server.URL + "activity/addCart.php";
     Button addCart;
@@ -48,12 +48,13 @@ public class DetailProduct extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.frag_detail, container, false);
 
-        detail_id=view.findViewById(R.id.dt_id);
-        detail_pname = view.findViewById(R.id.dt_name);
+        //detail_id=view.findViewById(R.id.dt_id);
+        detail_pname = view.findViewById(R.id.dt_nama);
         detail_price = view.findViewById(R.id.dt_harga);
         detail_desc = view.findViewById(R.id.dt_shortdesc);
-        imageView = view.findViewById(R.id.dt_image);
-        addCart=view.findViewById(R.id.buyBarang);
+        imageView = view.findViewById(R.id.dt_gambar);
+        addCart=view.findViewById(R.id.addCart);
+        detail_pnilai=view.findViewById(R.id.dt_nilai);
 
         sharedPreferences = getActivity().getSharedPreferences(Login.my_shared_preferences, Context.MODE_PRIVATE);
 
@@ -76,10 +77,12 @@ public class DetailProduct extends Fragment {
         String name =  bundle.getString("product_name");
         String price = bundle.getString("price");
         String description = bundle.getString("product_desc");
+        String nilai= bundle.getString("product_nilai");
         String imageurl = bundle.getString("product_image");
 
-       detail_id.setText(product_id);
+      //  detail_id.setText(product_id);
         detail_pname.setText(name);
+        detail_pnilai.setText("Rating :  "+nilai);
         detail_desc.setText(description);
         Glide.with(this)
                 .load(imageurl)

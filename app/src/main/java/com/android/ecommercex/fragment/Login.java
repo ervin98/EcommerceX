@@ -19,7 +19,6 @@ import androidx.fragment.app.Fragment;
 
 import com.android.ecommercex.MainActivity;
 import com.android.ecommercex.R;
-import com.android.ecommercex.activity.LoginActivity;
 import com.android.ecommercex.activity.RegisterActivity;
 import com.android.ecommercex.controller.AppController;
 import com.android.ecommercex.utils.Server;
@@ -45,7 +44,7 @@ public class Login extends Fragment {
 
     private String url = Server.URL + "activity/login.php";
 
-    private static final String TAG = LoginActivity.class.getSimpleName();
+    private static final String TAG = Login.class.getSimpleName();
 
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_MESSAGE = "message";
@@ -73,6 +72,7 @@ public class Login extends Fragment {
         getActivity().setTitle("Login");
         conMgr = (ConnectivityManager) this.getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
         {
+
             if (conMgr.getActiveNetworkInfo() != null
                     && conMgr.getActiveNetworkInfo().isAvailable()
                     && conMgr.getActiveNetworkInfo().isConnected()) {
@@ -93,13 +93,7 @@ public class Login extends Fragment {
         id = sharedpreferences.getString(TAG_ID, null);
         username = sharedpreferences.getString(TAG_USERNAME, null);
 
-        if (session) {
-            Intent intent = new Intent(getActivity(), MainActivity.class);
-            intent.putExtra(TAG_ID, id);
-            intent.putExtra(TAG_USERNAME, username);
-            this.getActivity().finish();
-            startActivity(intent);
-        }
+
 
 
         btn_login.setOnClickListener(new View.OnClickListener() {

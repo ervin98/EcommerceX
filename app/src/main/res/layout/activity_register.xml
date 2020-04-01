@@ -1,5 +1,4 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -15,7 +14,7 @@
         android:src="@mipmap/login"/>
 
     <EditText
-        android:id="@+id/txt_username"
+        android:id="@+id/regist_user"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
@@ -23,13 +22,13 @@
         android:background="@drawable/shapeemail"
         android:drawableLeft="@drawable/ic_person_black_24dp"
         android:drawablePadding="10dp"
-        android:hint="Email"
+        android:hint="Username"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
         android:textColorHighlight="@color/white"/>
 
     <EditText
-        android:id="@+id/txt_password"
+        android:id="@+id/regist_pass"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
@@ -42,7 +41,7 @@
         android:textColorHint="@color/white"
         android:textColorHighlight="@color/white"/>
     <EditText
-        android:id="@+id/txt_confirm_password"
+        android:id="@+id/regist_confirm_pass"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"

@@ -75,6 +75,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
                 Bundle bundle = new Bundle();
                 bundle.putString("product_id",Integer.toString(product.getId()));
                 bundle.putString("product_name",product.getNama());
+                bundle.putString("product_nilai",Double.toString(product.getNilai()));
                 bundle.putString("price",Double.toString(product.getHarga()));
                 bundle.putString("product_desc",product.getDetail());
                 bundle.putString("product_image",product.getGbr());
@@ -84,8 +85,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         });
 
 }
-
-
 
     @Override
     public int getItemCount() {
