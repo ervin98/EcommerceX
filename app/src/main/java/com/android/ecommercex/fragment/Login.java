@@ -42,7 +42,7 @@ public class Login extends Fragment {
     private int success;
     private ConnectivityManager conMgr;
 
-    private String url = Server.URL + "activity/login.php";
+    private String url = Server.Login;
 
     private static final String TAG = Login.class.getSimpleName();
 

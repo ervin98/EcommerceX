@@ -36,7 +36,7 @@ public class ShoppingCart extends Fragment {
 
     private RelativeLayout view;
     private RecyclerView mView;
-    private String url = Server.URL + "activity/vCart.php";
+    private String url = Server.viewCart;
     private CartAdapter mCartAdapter;
     private ArrayList<Cart> mCartList;
     private Locale localeID = new Locale("in", "ID");

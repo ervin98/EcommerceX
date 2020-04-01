@@ -35,10 +35,9 @@ public class DetailProduct extends Fragment {
     private ImageView imageView;
     private TextView detail_pname,detail_price,detail_desc,detail_pnilai;
     SharedPreferences sharedPreferences;
-    private String URL = Server.URL + "activity/addCart.php";
-    Button addCart;
+     private String URL = Server.addCart + "activity/addCart.php";
 
-    String id_user, userName;
+    private String id_user, userName;
     public static final String TAG_ID = "id";
     public static final String TAG_USERNAME = "username";
 
@@ -53,7 +52,7 @@ public class DetailProduct extends Fragment {
         detail_price = view.findViewById(R.id.dt_harga);
         detail_desc = view.findViewById(R.id.dt_shortdesc);
         imageView = view.findViewById(R.id.dt_gambar);
-        addCart=view.findViewById(R.id.addCart);
+        Button addCart = view.findViewById(R.id.addCart);
         detail_pnilai=view.findViewById(R.id.dt_nilai);
 
         sharedPreferences = getActivity().getSharedPreferences(Login.my_shared_preferences, Context.MODE_PRIVATE);

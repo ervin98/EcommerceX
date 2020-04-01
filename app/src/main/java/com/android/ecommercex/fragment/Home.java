@@ -31,7 +31,6 @@ import java.util.ArrayList;
 
 public class Home extends Fragment {
 
-    private String URL_PRODUCTS = Server.URL + "Home.php";
     private RecyclerView mRecyclerView;
     private ProductAdapter mProductAdapter;
     private ArrayList<Product> mProductList;
@@ -61,6 +60,8 @@ public class Home extends Fragment {
         }
 
         private void loadProducts() {
+            String URL_PRODUCTS = Server.Home;
+
             StringRequest stringRequest = new StringRequest(Request.Method.GET, URL_PRODUCTS,
                     new Response.Listener<String>() {
                         @Override
