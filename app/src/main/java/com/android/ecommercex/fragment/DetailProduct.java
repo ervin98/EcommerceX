@@ -35,7 +35,7 @@ public class DetailProduct extends Fragment {
     private ImageView imageView;
     private TextView detail_pname,detail_price,detail_desc,detail_pnilai;
     SharedPreferences sharedPreferences;
-     private String URL = Server.addCart + "activity/addCart.php";
+     private String URL = Server.addCart;
 
     private String id_user, userName;
     public static final String TAG_ID = "id";
@@ -70,9 +70,10 @@ public class DetailProduct extends Fragment {
         return view;
     }
     private void binddata() {
+
+
         Bundle bundle = getArguments();
 
-        String product_id =  bundle.getString("product_id");
         String name =  bundle.getString("product_name");
         String price = bundle.getString("price");
         String description = bundle.getString("product_desc");
@@ -88,6 +89,7 @@ public class DetailProduct extends Fragment {
                 .into(imageView);
         detail_price.setText(formatRupiah.format((Double.parseDouble(price))));
     }
+
     private void addto_cart(){
         if(id_user != null ){
 

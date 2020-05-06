@@ -63,7 +63,6 @@ public class MainActivity extends AppCompatActivity
             fragment = new Home();
             callFragment(fragment);
         }
-
     }
 
     @Override

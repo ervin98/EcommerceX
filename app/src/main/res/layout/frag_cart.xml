@@ -28,7 +28,7 @@
         android:gravity="center_vertical"
         android:orientation="horizontal">
         <TextView
-            android:text="Total"
+            android:text="Total: "
             android:textSize="20sp"
             android:textColor="@android:color/black"
             android:layout_width="wrap_content"
@@ -42,7 +42,7 @@
         android:textColor="@android:color/black"/>
     </LinearLayout>
     <Button
-        android:id="@+id/btnPlaceOrder"
+        android:id="@+id/btnPay"
         android:layout_width="match_parent"
         android:layout_margin="8dp"
         android:layout_height="wrap_content"

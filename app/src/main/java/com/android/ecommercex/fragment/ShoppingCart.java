@@ -1,10 +1,14 @@
 package com.android.ecommercex.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
@@ -12,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.ecommercex.R;
+import com.android.ecommercex.activity.PaymentActivity;
 import com.android.ecommercex.controller.Cart;
 import com.android.ecommercex.controller.CartAdapter;
 import com.android.ecommercex.utils.Server;
@@ -40,11 +45,15 @@ public class ShoppingCart extends Fragment {
     private CartAdapter mCartAdapter;
     private ArrayList<Cart> mCartList;
     private Locale localeID = new Locale("in", "ID");
-    private NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
+    private NumberFormat fRupiah = NumberFormat.getCurrencyInstance(localeID);
     private RequestQueue mRequestQueue;
 
-   String halo="0";
-    String id_user="0", userName;
+
+    Double totalMon=0.0;
+    TextView tTotal;
+    String halo="0";
+    Button payButton;
+    private String id_user="0", userName,stTotal;
     private static final String TAG = "Pesan Saya";
     public static final String TAG_ID = "id";
     public static final String TAG_USERNAME = "username";
@@ -59,15 +68,29 @@ public class ShoppingCart extends Fragment {
         mView.setHasFixedSize(true);
         mView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
+        payButton=view.findViewById(R.id.btnPay);
         id_user = getActivity().getIntent().getStringExtra(TAG_ID);
         userName = getActivity().getIntent().getStringExtra(TAG_USERNAME);
 
+        tTotal=view.findViewById(R.id.buytotal);
         mCartList = new ArrayList<>();
         mRequestQueue = Volley.newRequestQueue(getActivity());
         loadcart();
+        payButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                Intent i = new Intent(getActivity(), PaymentActivity.class);
+                i.putExtra("totalPrice", totalMon);
+                i.putExtra("id_user",id_user);
+                i.putExtra("nameToken",userName);
+                startActivity(i);
+
+            }
+        });
         return view;
     }
+
     private void loadcart() {
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
@@ -78,9 +101,11 @@ public class ShoppingCart extends Fragment {
                             JSONArray array = new JSONArray(response);
                             //traversing through all the object
                             for (int i = 0; i < array.length(); i++) {
+
                                     //getting product object from json array
                                     JSONObject productObj = array.getJSONObject(i);
                                     //adding the product to product list
+                                    halo=productObj.getString("token");
                                 if(id_user.equals(halo)){
                                     mCartList.add(new Cart(
                                             productObj.getInt("id"),
@@ -88,12 +113,18 @@ public class ShoppingCart extends Fragment {
                                             productObj.getString("detail"),
                                             productObj.getDouble("harga"),
                                             productObj.getString("gbr"),
-                                            productObj.getString("token")
+                                            productObj.getString("token"),
+                                            productObj.getInt("quantity")
                                     ));
+                                    Log.i(String.valueOf(productObj.getDouble("harga")), String.valueOf(totalMon));
+
+                                    totalMon=totalMon+(productObj.getDouble("harga")*productObj.getInt("quantity"));
                                 }
                             }
                                         mCartAdapter = new CartAdapter(getActivity(), mCartList);
                                         mView.setAdapter(mCartAdapter);
+                                        tTotal.setText(fRupiah.format((totalMon)));
+                                        stTotal=String.valueOf(totalMon);
                                     //  mProductAdapter.setOnItemClickListener(Home.this);
 
                         } catch (JSONException e) {
