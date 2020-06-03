@@ -1,5 +1,7 @@
 package com.android.ecommercex.activity;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -24,6 +26,7 @@ import java.util.Map;
 
 public class PaymentActivity extends AppCompatActivity {
     private String URL = Server.addTran;
+   private String pdf = Server.pdf ;
     private Locale localeID = new Locale("in", "ID");
     private NumberFormat fRupiah = NumberFormat.getCurrencyInstance(localeID);
 
@@ -50,6 +53,9 @@ public class PaymentActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 payment();
+                Intent bukabrowser = new Intent(Intent. ACTION_VIEW);
+                bukabrowser.setData(Uri. parse(pdf));
+                startActivity(bukabrowser);
         }
     });
     }
