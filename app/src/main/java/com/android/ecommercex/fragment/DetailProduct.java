@@ -126,6 +126,7 @@ public class DetailProduct extends Fragment {
 
             ft.replace(R.id.frame_container, new Login());
             ft.commit();
+
         }
     }
 }
